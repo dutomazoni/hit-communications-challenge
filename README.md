@@ -1,8 +1,10 @@
 # Desafio HIT
 
-O projeto está disponível na [web](https://jelly-jealous-gargoyleosaurus.glitch.me/).
 O projeto está integrado com a Agenda Google, então quando for feito um request para criar um evento, também será criado na agenda em que foi feito o login da aplicação.
 
+O id da task, utilizado nos endpoints de post, patch, put e delete, são do campo **_id**.
+
+Por exemplo, ao acessar o endpoint **get** /tasks, vamos obter na resposta um objeto com o array tasks, que são tarefas salvas no banco de dados pela aplicaçãoe e que tem o parâmetro **_id**, e GoogleAgendaEvents, que são os eventos cadastrados na agenda Google do usuário.
 ## Instalação
 ##### OBS: todos os comandos são considerando a pasta root (hit-communications-challenge) como inicial.
 

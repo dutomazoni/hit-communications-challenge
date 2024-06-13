@@ -65,7 +65,6 @@ async function authorize () {
 
 task_routes.get_standard_message = async (req, res) => {
   try {
-    authorize().then(console.log("Welcome"))
     return res.status(200).json({ message: 'Welcome!' })
   } catch (error) {
     return res.status(400).json({})
@@ -80,6 +79,7 @@ task_routes.get_tasks = async (req, res) => {
       await calendar.events.list({
         calendarId: 'primary',
         singleEvents: true,
+        timeMin: new Date().toISOString(),
         orderBy: 'startTime',
       }, async function (err, event) {
         if (err) {
@@ -97,10 +97,11 @@ task_routes.get_tasks = async (req, res) => {
           console.log(`${start} - ${event.summary}`)
         })
         return res.status(200).json({
-          message: `'Events:${events.map((event, i) => {
+          TasksInDb: tasks,
+          GoogleAgendaEvents: `Google Agenda Events from now on:${events.map((event, i) => {
             const start = event.start.dateTime || event.start.date
             return (` ${start} - ${event.summary}`)
-          })}'`,
+          })}`,
         })
       })
     })
