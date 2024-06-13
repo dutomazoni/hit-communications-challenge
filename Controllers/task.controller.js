@@ -65,6 +65,7 @@ async function authorize () {
 
 task_routes.get_standard_message = async (req, res) => {
   try {
+    authorize().then(console.log("Welcome"))
     return res.status(200).json({ message: 'Welcome!' })
   } catch (error) {
     return res.status(400).json({})

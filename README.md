@@ -1,6 +1,6 @@
 # Desafio HIT
 
-O projeto está disponível na [web](https://lumi-challenge.netlify.app/).
+O projeto está disponível na [web](https://jelly-jealous-gargoyleosaurus.glitch.me/).
 O projeto está integrado com a Agenda Google, então quando for feito um request para criar um evento, também será criado na agenda em que foi feito o login da aplicação.
 
 ## Instalação
