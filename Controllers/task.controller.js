@@ -10,11 +10,6 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const TOKEN_PATH = path.join(process.cwd(), 'token.json')
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json')
 
-/**
- * Reads previously authorized credentials from the save file.
- *
- * @return {Promise<OAuth2Client|null>}
- */
 async function loadSavedCredentialsIfExist () {
   try {
     const content = await fs.readFile(TOKEN_PATH)
@@ -25,12 +20,6 @@ async function loadSavedCredentialsIfExist () {
   }
 }
 
-/**
- * Serializes credentials to a file compatible with GoogleAuth.fromJSON.
- *
- * @param {OAuth2Client} client
- * @return {Promise<void>}
- */
 async function saveCredentials (client) {
   const content = await fs.readFile(CREDENTIALS_PATH)
   const keys = JSON.parse(content)
@@ -44,10 +33,6 @@ async function saveCredentials (client) {
   await fs.writeFile(TOKEN_PATH, payload)
 }
 
-/**
- * Load or request or authorization to call APIs.
- *
- */
 async function authorize () {
   let client = await loadSavedCredentialsIfExist()
   if (client) {
@@ -89,7 +74,10 @@ task_routes.get_tasks = async (req, res) => {
         const events = event.data.items;
         if (!events || events.length === 0) {
           console.log('No events found.')
-          return
+          return res.status(200).json({
+            TasksInDb: tasks,
+            GoogleAgendaEvents: "No events found.",
+          })
         }
         console.log('Events:')
         events.map((event, i) => {
